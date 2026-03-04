@@ -21,7 +21,6 @@ def input_error(func: Callable) -> Callable:
     return inner
 
 
-@input_error
 def parse_input(user_input: str) -> tuple:
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -39,21 +38,24 @@ def add_contact(args: list[str], contacts: dict[str, str]) -> str:
 def change_contact(args: list[str], contacts: dict[str, str]) -> str:
     name, phone = args
 
-    contacts[name] = phone
-    return "Contact updated"
+    if name in contacts:
+        contacts[name] = phone
+        return "Contact updated"
+    
+    else:
+        raise KeyError
+
     
 
 
 @input_error
 def show_phone(args: list[str], contacts: dict[str, str]) -> str:
     name = args[0]
-
     return contacts[name]
     
 
 @input_error
-def show_all(args: list[str], contacts: dict[str, str]) -> dict[str, str]:
-    
+def show_all(args: list[str], contacts: dict[str, str]) -> dict[str, str]:   
     return contacts
     
     
