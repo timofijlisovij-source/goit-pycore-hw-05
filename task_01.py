@@ -1,6 +1,6 @@
 from typing import Callable
 
-def caching_fibonacci() -> callable[[int], int]:
+def caching_fibonacci() -> Callable[[int], int]:
     cache: dict[int, int] = {}
     
     def fibonacci(n: int) -> int:
@@ -11,7 +11,7 @@ def caching_fibonacci() -> callable[[int], int]:
         elif n in cache:
             return cache[n]
         
-        cache[n] = fibonacci(n-1) + fibonacci(n-2)
+        cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
         return cache[n]
     
     return fibonacci
